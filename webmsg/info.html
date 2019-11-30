@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+<div id="info">
+	
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(function(){
+		var wsServerIP="127.0.0.1";
+		var wsServerPort="9501";
+		var ws = new WebSocket("ws://"+wsServerIP+":"+wsServerPort);
+		ws.onopen=function(){
+
+			$("#info").append("<span>建立连接成功</span> </br>");
+		}
+		ws.onmessage=function(evt){
+
+			var infotext=evt.data;
+			$("#info").append("<span>"+infotext+"</span> </br>");
+
+			
+		}
+		ws.onclose=function(){
+			console.log("")
+			$("#info").append("<span>服务端中断</span> </br>");
+		}
+	
+	})
+</script>
+
+  </body>
+</html>

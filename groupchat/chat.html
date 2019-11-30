@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chat</title>
+</head>
+<body>
+    <div id="msg"></div>
+    <input type="text" id="text">
+    <input type="submit" value="发送数据" onclick="song()">
+    <script>
+    var msg = document.getElementById("msg");
+    var wsServer  = 'ws://127.0.0.1:9501';
+    var ws = new WebSocket(wsServer);
+    ws.onopen=function(){
+        msg.innerHTML ="ws 连接状态" +ws.readyState +"</br>";
+    }
+    function song(){
+        var text = document.getElementById('text').value;
+        document.getElementById('text').value = '';
+        //向服务器发送数据
+        ws.send(text);
+    }
+    ws.onmessage=function(evt){
+        msg.innerHTML += evt.data +'<br>';
+    }
+
+    </script>
+</body>
+</html>
